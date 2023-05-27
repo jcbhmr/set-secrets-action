@@ -28,7 +28,8 @@ try {
     (await $`gh search repos ${query} --include-forks true --json fullName --jq .[].fullName`)
   )
     .trim()
-    .split(/\s+/g);
+    .split(/\s+/g)
+    .filter((s) => s !== Deno.env.get("GITHUB_REPOSITORY")!);
 
   if (!repositories.length) {
     console.warn("No repositories found");
