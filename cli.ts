@@ -3,8 +3,8 @@ import { $ } from "npm:zx";
 
 const token = Deno.env.get("INPUT_TOKEN")!;
 const githubServerURL = Deno.env.get("INPUT_GITHUB_SERVER_URL")!;
-const owner = Deno.env.get("INPUT_OWNER")!;
-const repositoryFiler = new RegExp(Deno.env.get("INPUT_REPOSITOORY_FILTER")!);
+const owner = Deno.env.get("INPUT_OWNER");
+const repositoryFiler = new RegExp(Deno.env.get("INPUT_REPOSITORY_FILTER")!);
 const dryRun = parseBoolean(Deno.env.get("INPUT_DRY_RUN"));
 const secrets = JSON.parse(Deno.env.get("INPUT_DRY_RUN")!);
 const secretFilter = new RegExp(Deno.env.get("INPUT_SECRET_FILTER")!);
@@ -12,7 +12,6 @@ const secretFilter = new RegExp(Deno.env.get("INPUT_SECRET_FILTER")!);
 Deno.env.set("GITHUB_TOKEN", token);
 Deno.env.set("GITHUB_SERVER_URL", githubServerURL);
 Deno.env.set("GH_HOST", new URL(githubServerURL).host);
-Deno.env.set("GITHUB_ACTOR", owner);
 
 const envFile = await Deno.makeTempFile({ suffix: ".env" });
 try {
@@ -26,12 +25,17 @@ try {
   }
 
   const repositories = (
-    "" +
-    (await $`gh repo list ${owner} --json nameWithOwner --jq .[].nameWithOwner`)
+    owner
+      ? "" + (await $`gh repo list --json nameWithOwner --jq .[].nameWithOwner`)
+      : "" +
+        (await $`gh repo list ${owner} --json nameWithOwner --jq .[].nameWithOwner`)
   )
     .trim()
     .split(/\s+/g);
 
+  if (!repositories.length) {
+    console.warn("No repositories found");
+  }
   const errors: Error[] = [];
   for (const repository of repositories) {
     if (!repositoryFiler.test(repository)) {
@@ -47,7 +51,6 @@ try {
       );
     }
   }
-
   if (errors.length) {
     throw new AggregateError(errors);
   }
