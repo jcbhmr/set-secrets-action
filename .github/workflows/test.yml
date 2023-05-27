@@ -32,12 +32,12 @@ jobs:
       - uses: ./
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          secrets: '{ "MY_TEST": "test" }'
+          secrets: ${{ toJSON(secrets) }}
           dry-run: true
       - name: ./:filter
         uses: ./
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          secrets: '{ "MY_TEST": "test" }'
+          secrets: ${{ toJSON(secrets) }}
           secret-filter: /TEST/
           dry-run: true
