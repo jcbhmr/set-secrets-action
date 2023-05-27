@@ -4,7 +4,7 @@ import { $ } from "npm:zx";
 const token = Deno.env.get("INPUT_TOKEN")!;
 const githubServerURL = Deno.env.get("INPUT_GITHUB_SERVER_URL")!;
 const dryRun = parseBoolean(Deno.env.get("INPUT_DRY_RUN")!);
-const query = Deno.env.get("INPUT_OWNER")!;
+const query = Deno.env.get("INPUT_QUERY")!;
 const secrets = JSON.parse(Deno.env.get("INPUT_DRY_RUN")!);
 const secretFilter = new RegExp(Deno.env.get("INPUT_SECRET_FILTER")!);
 
