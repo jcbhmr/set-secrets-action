@@ -40,7 +40,7 @@ try {
     if (dryRun) {
       console.info`gh secret set -R ${repository} -f ${envFile}`;
     } else {
-      await $`gh secret set -R ${repository} -f ${envFile}`;
+      await $`gh secret set -R ${repository} -f ${envFile}`.catch(() => null);
     }
   }
 } finally {
