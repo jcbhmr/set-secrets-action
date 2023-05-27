@@ -23,7 +23,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - run: "./denow run -Aq cli.ts"
+    - run: '"${GITHUB_ACTION_PATH%/}/denow" run -Aq cli.ts'
       shell: bash
       env:
         INPUT: ${{ toJSON(inputs) }}
