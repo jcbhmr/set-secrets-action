@@ -1,16 +1,13 @@
-import { getInput } from "npm:@actions/core";
 import parseBoolean from "npm:parseboolean";
 import { $ } from "npm:zx";
 
-const token = getInput("token", { required: true });
-const githubServerURL = getInput("github_server_url", { required: true });
-const owner = getInput("owner", { required: true });
-const repositoryFiler = new RegExp(
-  getInput("repository_filter", { required: true })
-);
-const dryRun = parseBoolean(getInput("dry_run", { required: true }));
-const secrets = JSON.parse(getInput("secrets", { required: true }));
-const secretFilter = new RegExp(getInput("secret_filter", { required: true }));
+const token = Deno.env.get("INPUT_TOKEN")!;
+const githubServerURL = Deno.env.get("INPUT_GITHUB_SERVER_URL")!;
+const owner = Deno.env.get("INPUT_OWNER")!;
+const repositoryFiler = new RegExp(Deno.env.get("INPUT_REPOSITOORY_FILTER")!);
+const dryRun = parseBoolean(Deno.env.get("INPUT_DRY_RUN"));
+const secrets = JSON.parse(Deno.env.get("INPUT_DRY_RUN")!);
+const secretFilter = new RegExp(Deno.env.get("INPUT_SECRET_FILTER")!);
 
 Deno.env.set("GITHUB_TOKEN", token);
 Deno.env.set("GITHUB_SERVER_URL", githubServerURL);
