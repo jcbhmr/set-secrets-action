@@ -13,12 +13,9 @@ inputs:
   dry-run:
     required: true
     default: false
-  owner:
+  query:
     required: true
-    default: ""
-  repository-filter:
-    required: true
-    default: ""
+    default: user:${{ github.repository_owner }}
   secrets:
     required: true
   secret-filter:
@@ -27,13 +24,12 @@ inputs:
 runs:
   using: composite
   steps:
-    - run: "./denow run -A cli.ts"
+    - run: "./denow run -Aq cli.ts"
       shell: bash
       env:
         INPUT_TOKEN: ${{ inputs.token }}
         INPUT_GITHUB_SERVER_URL: ${{ inputs.github-server-url }}
         INPUT_DRY_RUN: ${{ inputs.dry-run }}
-        INPUT_OWNER: ${{ inputs.owner }}
-        INPUT_REPOSITORY_FILTER: ${{ inputs.repository-filter }}
+        INPUT_QUERY: ${{ inputs.query }}
         INPUT_SECRETS: ${{ inputs.secrets }}
         INPUT_SECRET_FILTER: ${{ inputs.secret-filter }}
