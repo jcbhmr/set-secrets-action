@@ -41,10 +41,3 @@ jobs:
           secrets: '{ "TEST": "test" }'
           filter: /sync-user-secrets$
           dry-run: true
-  test-main:
-    if: github.ref_name == 'main'
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./
