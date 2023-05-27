@@ -26,7 +26,8 @@ try {
   }
 
   const repositories = (
-    "" + (await $`gh repo list --json nameWithOwner --jq .[].nameWithOwner`)
+    "" +
+    (await $`gh repo list ${owner} --json nameWithOwner --jq .[].nameWithOwner`)
   )
     .trim()
     .split(/\s+/g);
