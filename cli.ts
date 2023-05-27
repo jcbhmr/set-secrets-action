@@ -9,12 +9,8 @@ import parseBoolean from "npm:parseboolean";
 import { $ } from "npm:zx";
 import { isFunction, isRegExp } from "npm:is-what";
 
-$.verbose = false;
-
 const runnerDebug = parseBoolean(Deno.env.get("RUNNER_DEBUG")!);
-if (runnerDebug) {
-  $.verbose = true;
-}
+$.verbose = runnerDebug;
 
 const input = JSON.parse(Deno.env.get("INPUT")!) as Record<string, string>;
 const token = input.token;
@@ -40,6 +36,8 @@ globalThis.addEventListener("unload", () => Deno.removeSync(envFile));
 for (const [k, v] of Object.entries(secrets)) {
   if (secretFilter(k, v) && k !== "github_token" && v !== token) {
     await Deno.writeTextFile(envFile, `${k}=${v}\n`, { append: true });
+  } else if (runnerDebug) {
+    console.info(`Skipping ${k}`);
   }
 }
 if (runnerDebug) {
