@@ -28,6 +28,7 @@ runs:
   using: composite
   steps:
     - run: "./denow run -A cli.ts"
+      shell: bash
       env:
         INPUT_TOKEN: ${{ inputs.token }}
         INPUT_GITHUB_SERVER_URL: ${{ inputs.github-server-url }}
