@@ -34,12 +34,5 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           query: user:${{ github.repository_owner }}
           secrets: ${{ toJSON(secrets) }}
-          dry-run: true
-      - name: ./:filter
-        uses: ./
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          query: user:${{ github.repository_owner }}
-          secrets: ${{ toJSON(secrets) }}
           secret-filter: /^HELLO/
           dry-run: true
