@@ -31,6 +31,7 @@ try {
     .trim()
     .split(/\s+/g);
 
+  const errors: Error[] = [];
   for (const repository of repositories) {
     if (!repositoryFiler.test(repository)) {
       console.debug(`Skip ${repository}`);
@@ -40,8 +41,14 @@ try {
     if (dryRun) {
       console.info`gh secret set -R ${repository} -f ${envFile}`;
     } else {
-      await $`gh secret set -R ${repository} -f ${envFile}`.catch(() => null);
+      await $`gh secret set -R ${repository} -f ${envFile}`.catch((e) =>
+        errors.push(e)
+      );
     }
+  }
+
+  if (errors.length) {
+    throw new AggregateError(errors);
   }
 } finally {
   await Deno.remove(envFile);
