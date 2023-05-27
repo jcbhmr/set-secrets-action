@@ -39,5 +39,5 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           secrets: ${{ toJSON(secrets) }}
-          secret-filter: /TEST/
+          secret-filter: /^HELLO/
           dry-run: true

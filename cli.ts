@@ -1,12 +1,24 @@
 import parseBoolean from "npm:parseboolean";
 import { $ } from "npm:zx";
+import { isFunction, isRegExp } from "npm:is-what";
 
 const token = Deno.env.get("INPUT_TOKEN")!;
 const githubServerURL = Deno.env.get("INPUT_GITHUB_SERVER_URL")!;
 const dryRun = parseBoolean(Deno.env.get("INPUT_DRY_RUN")!);
 const query = Deno.env.get("INPUT_QUERY")!;
 const secrets = JSON.parse(Deno.env.get("INPUT_DRY_RUN")!);
-const secretFilter = new RegExp(Deno.env.get("INPUT_SECRET_FILTER")!);
+let secretFilter = (0, eval)(Deno.env.get("INPUT_SECRET_FILTER")!) as (
+  k: string,
+  v: string
+) => boolean;
+if (isFunction(secretFilter)) {
+  // Nothing
+} else if (isRegExp(secretFilter)) {
+  const re = secretFilter as RegExp;
+  secretFilter = (k) => re.test(k);
+} else {
+  secretFilter = () => true;
+}
 
 Deno.env.set("GITHUB_TOKEN", token);
 Deno.env.set("GITHUB_SERVER_URL", githubServerURL);
@@ -15,7 +27,7 @@ Deno.env.set("GH_HOST", new URL(githubServerURL).host);
 const envFile = await Deno.makeTempFile({ suffix: ".env" });
 try {
   for (const [k, v] of Object.entries(secrets)) {
-    if (!secretFilter.test(k)) {
+    if (!secretFilter(k, v)) {
       console.debug(`Skipping secret $${k}`);
       continue;
     }
