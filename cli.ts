@@ -1,3 +1,4 @@
+#!/usr/bin/env -S deno run -Aq
 /**
  * TODO: Add doc comment
  *
