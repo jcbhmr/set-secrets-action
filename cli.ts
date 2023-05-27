@@ -39,8 +39,7 @@ for (const [k, v] of Object.entries(secrets)) {
 }
 
 const repositories = (
-  "" +
-  (await $`gh search repos ${query} --include-forks true --json fullName --jq .[].fullName`)
+  "" + (await $`gh search repos ${query} --json fullName --jq .[].fullName`)
 )
   .trim()
   .split(/\s+/g)
