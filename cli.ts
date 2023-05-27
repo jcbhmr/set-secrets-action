@@ -17,7 +17,7 @@ const token = input.token;
 const githubServerURL = new URL(input["github-server-url"]);
 const dryRun = parseBoolean(input["dry-run"]);
 const query = input.query;
-const secrets = JSON.parse(input["dry-run"]) as Record<string, string>;
+const secrets = JSON.parse(input.secrets) as Record<string, string>;
 const secretFilterRaw = (0, eval)(input["secret-filter"]);
 const secretFilter: (k: string, v: string) => boolean = isFunction(
   secretFilterRaw
