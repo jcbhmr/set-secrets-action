@@ -3,14 +3,14 @@ import parseBoolean from "npm:parseboolean";
 import { $ } from "npm:zx";
 
 const token = getInput("token", { required: true });
-const githubServerURL = getInput("github-server-url", { required: true });
+const githubServerURL = getInput("github_server_url", { required: true });
 const owner = getInput("owner", { required: true });
 const repositoryFiler = new RegExp(
-  getInput("repository-filter", { required: true })
+  getInput("repository_filter", { required: true })
 );
-const dryRun = parseBoolean(getInput("dry-run", { required: true }));
+const dryRun = parseBoolean(getInput("dry_run", { required: true }));
 const secrets = JSON.parse(getInput("secrets", { required: true }));
-const secretFilter = new RegExp(getInput("secret-filter", { required: true }));
+const secretFilter = new RegExp(getInput("secret_filter", { required: true }));
 
 Deno.env.set("GITHUB_TOKEN", token);
 Deno.env.set("GITHUB_SERVER_URL", githubServerURL);
