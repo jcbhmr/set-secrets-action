@@ -1,0 +1,46 @@
+name: Test
+on:
+  push:
+    branches: [main]
+    paths:
+      - src/**
+      - action.yml
+      - wiki/**
+      - .github/workflows/test.yml
+  pull_request:
+    branches: [main]
+    paths:
+      - src/**
+      - action.yml
+      - wiki/**
+      - .github/workflows/test.yml
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: write
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          dry-run: true
+      - name: ./:filter
+        uses: ./
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          filter: /sync-user-secrets$
+          dry-run: true
+  test-main:
+    if: github.ref_name == 'main'
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
