@@ -27,7 +27,9 @@ try {
 
   const repositories = (
     "" + (await $`gh repo list --json nameWithOwner --jq .[].nameWithOwner`)
-  ).split(/\s+/g);
+  )
+    .trim()
+    .split(/\s+/g);
 
   for (const repository of repositories) {
     if (!repositoryFiler.test(repository)) {
