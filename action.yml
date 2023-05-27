@@ -15,7 +15,6 @@ inputs:
     default: false
   query:
     required: true
-    default: user:${{ github.repository_owner }}
   secrets:
     required: true
   secret-filter:
