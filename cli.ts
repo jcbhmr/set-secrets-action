@@ -34,7 +34,12 @@ const envFile = await Deno.makeTempFile({ suffix: ".env" });
 globalThis.addEventListener("unload", () => Deno.removeSync(envFile));
 
 for (const [k, v] of Object.entries(secrets)) {
-  if (secretFilter(k, v) && k !== "github_token" && v !== token) {
+  if (
+    !/^github/i.test(k) &&
+    !/^actions/i.test(k) &&
+    v !== token &&
+    secretFilter(k, v)
+  ) {
     await Deno.writeTextFile(envFile, `${k}=${v}\n`, { append: true });
   } else if (runnerDebug) {
     console.info(`Skipping ${k}`);
