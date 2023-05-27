@@ -8,6 +8,15 @@ const repositoryFiler = new RegExp(Deno.env.get("INPUT_REPOSITORY_FILTER")!);
 const dryRun = parseBoolean(Deno.env.get("INPUT_DRY_RUN"));
 const secrets = JSON.parse(Deno.env.get("INPUT_DRY_RUN")!);
 const secretFilter = new RegExp(Deno.env.get("INPUT_SECRET_FILTER")!);
+console.table({
+  token,
+  githubServerURL,
+  owner,
+  repositoryFiler,
+  dryRun,
+  secrets,
+  secretFilter,
+});
 
 Deno.env.set("GITHUB_TOKEN", token);
 Deno.env.set("GITHUB_SERVER_URL", githubServerURL);
