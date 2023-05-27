@@ -11,6 +11,11 @@ import { isFunction, isRegExp } from "npm:is-what";
 
 $.verbose = false;
 
+const runnerDebug = parseBoolean(Deno.env.get("RUNNER_DEBUG")!);
+if (runnerDebug) {
+  $.verbose = true;
+}
+
 const input = JSON.parse(Deno.env.get("INPUT")!) as Record<string, string>;
 const token = input.token;
 const githubServerURL = new URL(input["github-server-url"]);
@@ -36,6 +41,9 @@ for (const [k, v] of Object.entries(secrets)) {
   if (secretFilter(k, v) && k !== "github_token" && v !== token) {
     await Deno.writeTextFile(envFile, `${k}=${v}\n`, { append: true });
   }
+}
+if (runnerDebug) {
+  console.info(await Deno.readTextFile(envFile));
 }
 
 const repositories = (
