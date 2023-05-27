@@ -32,12 +32,13 @@ jobs:
       - uses: ./
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          secrets: '{ "TEST": "test" }'
+          secrets: '{ "MY_TEST": "test" }'
           dry-run: true
       - name: ./:filter
         uses: ./
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          secrets: '{ "TEST": "test" }'
-          filter: /sync-user-secrets$
+          secrets: '{ "MY_TEST": "test" }'
+          repository-filter: /sync-user-secrets$
+          secret-filter: /TEST/
           dry-run: true
