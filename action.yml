@@ -15,7 +15,7 @@ inputs:
     default: false
   owner:
     required: true
-    default: ${{ github.repository_owner }}
+    default: ""
   repository-filter:
     required: true
     default: ""

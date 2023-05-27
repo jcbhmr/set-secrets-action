@@ -32,14 +32,14 @@ jobs:
       - uses: ./
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          owner: ""
+          owner: ${{ github.repository_owner }}
           secrets: '{ "MY_TEST": "test" }'
           dry-run: true
       - name: ./:filter
         uses: ./
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          owner: ""
+          owner: ${{ github.repository_owner }}
           repository-filter: /sync-user-secrets$
           secrets: '{ "MY_TEST": "test" }'
           secret-filter: /TEST/
