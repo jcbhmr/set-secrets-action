@@ -4,7 +4,7 @@
 
 ## Usage
 
-The primary usecase for this action to to sync secrets from one "main" repo (like your special meta `user/.github` repo or `user/user` repo) to a bunch of other repositories. This is very useful for users who want to sync something like an `$NPM_TOKEN` secret across a bunch of their Node.js packages.
+The primary usecase for this action to to sync secrets from one "main" repo (like your special meta `user/.github` repo or `user/user` repo) to a bunch of other repositories. This is very useful for users who want to sync something like an `$NPM_TOKEN` secret across a bunch of their Node.js packages. You can use GitHub Search syntax to determine which repositories are targeted by this action.
 
 ```yml
 name: Update user secrets
