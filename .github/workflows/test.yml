@@ -34,7 +34,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           dry-run: true
           repositories: |
-            jcbhmr/md-html
-            jcbhmr/node-45981
-            jcbhmr/html-simple-dialogs
+            community/community
+            nodejs/node
+            denoland/deno
           secret: HELLO_WORLD=${{ secrets.HELLO_WORLD }}
