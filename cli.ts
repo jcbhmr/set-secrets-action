@@ -32,11 +32,11 @@ if (core.isDebug()) {
   core.endGroup();
 }
 const token = core.getInput("token", { required: true });
-const githubServerURL = core.getInput("github-server-url", { required: true });
+const githubServerURL = core.getInput("github_server_url", { required: true });
 process.env.GITHUB_TOKEN = token;
 process.env.GITHUB_SERVER_URL = githubServerURL;
 
-const dryRun = core.getBooleanInput("dry-run", { required: true });
+const dryRun = core.getBooleanInput("dry_run", { required: true });
 
 let repositories = core.getInput("repositories");
 const repository = core.getInput("repository");

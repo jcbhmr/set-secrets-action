@@ -29,8 +29,8 @@ runs:
       shell: bash
       env:
         INPUT_TOKEN: ${{ inputs.token }}
-        INPUT_GITHUB-SERVER-URL: ${{ inputs.github-server-url }}
-        INPUT_DRY-RUN: ${{ inputs.dry-run }}
+        INPUT_GITHUB_SERVER_URL: ${{ inputs.github-server-url }}
+        INPUT_DRY_RUN: ${{ inputs.dry-run }}
         INPUT_REPOSITORY: ${{ inputs.repository }}
         INPUT_REPOSITORIES: ${{ inputs.repositories }}
         INPUT_QUERY: ${{ inputs.query }}
