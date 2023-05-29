@@ -24,8 +24,8 @@ inputs:
 runs:
   using: composite
   steps:
-    # prettier-ignore
-    - run: '"${GITHUB_ACTION_PATH%/}/denow" run -Aq "${GITHUB_ACTION_PATH%/}/cli.ts"'
+    - run: |
+        "${GITHUB_ACTION_PATH%/}/denow" run -Aq "${GITHUB_ACTION_PATH%/}/cli.ts"
       shell: bash
       env:
         INPUT_TOKEN: ${{ inputs.token }}
