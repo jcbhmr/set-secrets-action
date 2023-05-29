@@ -13,14 +13,14 @@ inputs:
   dry-run:
     required: true
     default: false
-  repository:
-  repositories:
-  query:
+  repository: {}
+  repositories: {}
+  query: {}
   app:
     required: true
     default: actions
-  secret:
-  secrets:
+  secret: {}
+  secrets: {}
 runs:
   using: composite
   steps:
