@@ -32,7 +32,9 @@ jobs:
       - uses: ./
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          query: user:${{ github.repository_owner }}
-          secrets: ${{ toJSON(secrets) }}
-          secret-filter: /^HELLO/
           dry-run: true
+          repositories: |
+            jcbhmr/md-html
+            jcbhmr/node-45981
+            jcbhmr/html-simple-dialogs
+          secret: NPM_TOKEN=${{ secrets.NPM_TOKEN }}
