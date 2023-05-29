@@ -79,8 +79,8 @@ const results = await Promise.allSettled(
     .split(/\r?\n/g)
     .map((r) =>
       dryRun
-        ? $`gh secret set -R ${r} -a ${app} -f ${envFile}`
-        : core.info(`gh secret set -R ${r} -a ${app} -f ${envFile}`)
+        ? core.info(`gh secret set -R ${r} -a ${app} -f ${envFile}`)
+        : $`gh secret set -R ${r} -a ${app} -f ${envFile}`
     )
 );
 const failed = results.filter(
