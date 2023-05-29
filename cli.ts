@@ -54,12 +54,12 @@ let secrets = core.getInput("secrets");
 const secret = core.getInput("secret");
 assert(secrets || secret, "Must provide either secrets or secret");
 secrets ||= secret;
-core.debug("secrets:\n" + secrets);
+core.info("secrets:\n" + secrets);
 
 const envFile = await Deno.makeTempFile({ suffix: ".env" });
 globalThis.addEventListener("unload", () => Deno.removeSync(envFile));
 await writeFile(envFile, secrets);
-core.debug(`Wrote secrets to ${envFile}`);
+core.debug(envFile + ":\n" + await readFile(envFile));
 
 const results = await Promise.allSettled(
   repositories
