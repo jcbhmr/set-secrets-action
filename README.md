@@ -1,10 +1,12 @@
-# sync-user-secrets
+# Set secrets action
 
-🔒 Sync one repo's secrets to more repos
+🔒 Set secrets on a single repo or multiple repos at once
 
 ## Usage
 
-The primary usecase for this action to to sync secrets from one "main" repo (like your special meta `user/.github` repo or `user/user` repo) to a bunch of other repositories. This is very useful for users who want to sync something like an `$NPM_TOKEN` secret across a bunch of their Node.js packages. You can use GitHub Search syntax to determine which repositories are targeted by this action.
+Put something like this in a "dummy" repository that will hold a bunch of
+secrets. I like to use my community health file repository (`jcbhmr/.github`)
+for this.
 
 ```yml
 name: Update user secrets
@@ -14,7 +16,7 @@ on:
     paths:
       - .github/workflows/update-user-secrets.yml
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
   workflow_dispatch:
 concurrency:
   group: update-user-secrets
@@ -23,10 +25,12 @@ jobs:
   update-user-secrets:
     runs-on: ubuntu-latest
     steps:
-      - uses: jcbhmr/set-secrets-action@main
+      - uses: jcbhmr/set-secrets-action@v1
         with:
-          token: ${{ secrets.USER_SECRETS_PAT }}
-          query: user:${{ github.repository_owner }}
-          secrets: ${{ toJSON(secrets) }}
-          secret-filter: (k) => k !== "PROFILE_PAT"
+          token: ${{ secrets.USER_SECRETS_TOKEN }}
+          repositories: |
+            jcbhmr/md-html
+            jcbhmr/node-45981
+            jcbhmr/html-simple-dialogs
+          secret: NPM_TOKEN=${{ secrets.NPM_TOKEN }}
 ```
