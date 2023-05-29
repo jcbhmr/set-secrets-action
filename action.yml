@@ -34,5 +34,6 @@ runs:
         INPUT_REPOSITORY: ${{ inputs.repository }}
         INPUT_REPOSITORIES: ${{ inputs.repositories }}
         INPUT_QUERY: ${{ inputs.query }}
+        INPUT_APP: ${{ inputs.app }}
         INPUT_SECRET: ${{ inputs.secret }}
         INPUT_SECRETS: ${{ inputs.secrets }}
