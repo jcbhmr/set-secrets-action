@@ -83,10 +83,10 @@ secrets on the repository that is running the action.
 ### Inputs
 
 - **`token`:** The GitHub PAT to use when setting secrets on other repos. You
-  can't use the default `${{ secrets.GITHUB_TOKEN }}` for this since it only covers the
-  current repository. You'll need to create a PAT with access to the "secrets"
-  permission either for a single repo, multiple repos, or all repos. This is
-  required.
+  can't use the default `${{ secrets.GITHUB_TOKEN }}` for this since it only
+  covers the current repository. You'll need to create a PAT with access to the
+  "secrets" permission either for a single repo, multiple repos, or all repos.
+  This is required.
 
 - **`github-server-url`:** The GitHub server URL to use when setting secrets on
   other repos. This defaults to the GitHub server URL that the action is running
@@ -103,11 +103,11 @@ secrets on the repository that is running the action.
   secrets on. You must set at least one of `repository`, `repositories`, or
   `query`.
 
-- **`query`:** A [GitHub Search] query to find repositories to set the secrets on.
-  You must set at least one of `repository`, `repositories`, or `query`. This
-  input is useful if you want to dynamically expand the list of repositories to
-  set secrets on based on some criteria like `tag:nodejs` to auto-set the
-  `NPM_TOKEN` secret on all Node.js repos.
+- **`query`:** A [GitHub Search] query to find repositories to set the secrets
+  on. You must set at least one of `repository`, `repositories`, or `query`.
+  This input is useful if you want to dynamically expand the list of
+  repositories to set secrets on based on some criteria like `tag:nodejs` to
+  auto-set the `NPM_TOKEN` secret on all Node.js repos.
 
 - **`app`:** Either `actions`, `codespaces`, or `dependabot`. You can set
   secrets on only one context at a time. The default is `actions` which is
@@ -118,6 +118,19 @@ secrets on the repository that is running the action.
 
 - **`secrets`:** A newline-separated list of name-value pairs like
   `HELLO_WORLD=hello`. You must set at least one of `secret` or `secrets`.
+
+## Development
+
+![GitHub Actions](https://img.shields.io/static/v1?style=for-the-badge&message=GitHub+Actions&color=2088FF&logo=GitHub+Actions&logoColor=FFFFFF&label=)
+![Shell](https://img.shields.io/static/v1?style=for-the-badge&message=Shell&color=4EAA25&logo=GNU+Bash&logoColor=FFFFFF&label=)
+![Deno](https://img.shields.io/static/v1?style=for-the-badge&message=Deno&color=000000&logo=Deno&logoColor=FFFFFF&label=)
+
+This project uses the `cliw` script to download and install Deno locally (right
+next to the source code in `.deno/`) before using Deno to run the `cli.ts` main
+script! We do this Deno dance so that we can use JavaScript/TypeScript stuff
+without needing the complicated in-Git `dist/` folder if we used Node.js. To get
+started, just open a PR and the CI will run the `test.yml` workflow which will
+make sure everything works.
 
 <!-- prettier-ignore-start -->
 [crontab guru]: https://crontab.guru/
