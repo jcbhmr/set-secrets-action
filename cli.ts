@@ -20,7 +20,7 @@ if (core.isDebug()) {
 
 async function findAllRepositories(query: string): Promise<string> {
   return (
-    await $`gh search repos -L 500 ${query} --json fullName --jq .[].fullName`
+    await $`gh search repos -L 500 ${query} --json fullName -q .[].fullName`
   )
     .toString()
     .trim();
