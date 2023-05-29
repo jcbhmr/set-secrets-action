@@ -60,8 +60,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - run: |
-        "${GITHUB_ACTION_PATH%/}/denow" run -Aq "${GITHUB_ACTION_PATH%/}/cli.ts"
+    - run: '"${GITHUB_ACTION_PATH%/}/cliw"'
       shell: bash
       env:
         INPUT_TOKEN: ${{ inputs.token }}
