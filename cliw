@@ -1,4 +1,5 @@
 #!/bin/sh
+# Based on https://github.com/jcbhmr/deno_wrapper
 set -e
 # https://stackoverflow.com/a/29835459
 script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
