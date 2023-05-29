@@ -37,4 +37,4 @@ jobs:
             jcbhmr/md-html
             jcbhmr/node-45981
             jcbhmr/html-simple-dialogs
-          secret: NPM_TOKEN=${{ secrets.NPM_TOKEN }}
+          secret: HELLO_WORLD=${{ secrets.HELLO_WORLD }}
