@@ -1,10 +1,4 @@
 #!/usr/bin/env -S deno run -Aq
-/**
- * TODO: Add doc comment
- *
- * @file
- */
-
 import process from "node:process";
 import { readFile, writeFile } from "node:fs/promises";
 import assert from "node:assert";
@@ -75,7 +69,9 @@ const results = await Promise.allSettled(
     .map((r) =>
       dryRun
         ? core.info(`gh secret set -R ${r} -a ${app} -f ${envFile}`)
-        : $`gh secret set -R ${r} -a ${app} -f ${envFile}`
+        : $`gh secret set -R ${r} -a ${app} -f ${envFile}`.then(() =>
+            core.info(`Successfully set ${r} ${app} secrets from ${envFile}`)
+          )
     )
 );
 const failed = results.filter(
