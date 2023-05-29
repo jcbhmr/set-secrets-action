@@ -26,11 +26,6 @@ async function findAllRepositories(query: string): Promise<string> {
     .trim();
 }
 
-if (core.isDebug()) {
-  core.startGroup("process.env");
-  core.debug(process.env);
-  core.endGroup();
-}
 const token = core.getInput("token", { required: true });
 const githubServerURL = core.getInput("github_server_url", { required: true });
 process.env.GITHUB_TOKEN = token;
@@ -47,9 +42,7 @@ assert(
 );
 repositories ||= repository;
 repositories ||= await findAllRepositories(query);
-core.startGroup("repositories");
-core.debug(repositories);
-core.endGroup();
+core.info("repositories:\n" + repositories);
 
 const app = core.getInput("app", { required: true });
 assert(
@@ -61,18 +54,12 @@ let secrets = core.getInput("secrets");
 const secret = core.getInput("secret");
 assert(secrets || secret, "Must provide either secrets or secret");
 secrets ||= secret;
-core.startGroup("secrets");
-core.debug(secrets);
-core.endGroup();
+core.debug("secrets:\n" + secrets);
 
 const envFile = await Deno.makeTempFile({ suffix: ".env" });
 globalThis.addEventListener("unload", () => Deno.removeSync(envFile));
 await writeFile(envFile, secrets);
-if (core.isDebug()) {
-  core.startGroup(envFile);
-  core.debug(await readFile(envFile, "utf8"));
-  core.endGroup();
-}
+core.debug(`Wrote secrets to ${envFile}`);
 
 const results = await Promise.allSettled(
   repositories
