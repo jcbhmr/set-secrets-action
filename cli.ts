@@ -26,6 +26,11 @@ async function findAllRepositories(query: string): Promise<string> {
     .trim();
 }
 
+if (core.isDebug()) {
+  core.startGroup("process.env");
+  core.debug(process.env);
+  core.endGroup();
+}
 const token = core.getInput("token", { required: true });
 const githubServerURL = core.getInput("github-server-url", { required: true });
 process.env.GITHUB_TOKEN = token;
