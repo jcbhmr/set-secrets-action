@@ -48,9 +48,10 @@ jobs:
         with:
           token: ${{ secrets.USER_SECRETS_TOKEN }}
           repositories: |
-            jcbhmr/md-html
-            jcbhmr/node-45981
-            jcbhmr/html-simple-dialogs
+            jcbhmr/awesome-project
+            jcbhmr/nodejs-cool
+            jcbhmr/todo-app
+            jcbhmr/wiki-thing
           secrets: |
             NPM_TOKEN=${{ secrets.NPM_TOKEN }}
             VERCEL_TOKEN=${{ secrets.VERCEL_TOKEN }}
