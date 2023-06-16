@@ -31,14 +31,13 @@ secret values across multiple repositories. 😊
 name: Update user secrets
 on:
   push:
-    branches: [main]
-    paths:
-      - .github/workflows/update-user-secrets.yml
+    branches: "main"
+    paths: .github/workflows/update-user-secrets.yml
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
 concurrency:
-  group: update-user-secrets
+  group: ${{ github.workflow }}
   cancel-in-progress: true
 jobs:
   update-user-secrets:
